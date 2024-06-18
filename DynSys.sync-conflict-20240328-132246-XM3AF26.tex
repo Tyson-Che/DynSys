@@ -1,0 +1,535 @@
+%! TEX = pdflatex
+% 
+% // cSpell:ignore fontsize totalheight keepaspectratio docspec
+\documentclass{tufte-handout}
+
+%handling bibliography
+
+
+
+%fancy math fonts
+\usepackage{mathrsfs}
+
+%fancy cases and steps
+\usepackage{enumerate,mdwlist}
+\usepackage{enumitem}
+
+
+
+\usepackage{amsmath}  % extended mathematics
+
+
+\newcommand\n[1]{\lVert#1\rVert}
+\newcommand{\ok}{\mathcal{O}_{\K }}
+\newcommand{\EL}{\mathbb{E}^1}
+\newcommand{\EP}{\mathbb{E}^2}
+\newcommand{\EN}{\mathbb{E}^n}
+\newcommand{\afn}{\mathbb{A}}%affine
+\newcommand{\lcs}{\mathcal{Z}}%locus
+\newcommand{\rdl}{\mathcal{I}}%radical ideal
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\spt}{\supseteq}
+\DeclareMathOperator{\res}{res}
+\newcommand{\bsts}[2]
+{%big subset
+\left\{#1 \middle| 
+\begin{gathered}
+#2 
+\end{gathered} 
+\right\}
+}
+\newcommand{\basis}[8]{% v m v b1 b2
+\begin{center}
+	\begin{tikzcd} 
+	#1  \ar[r,"#2 (\cdot )"]& #3 \\
+	#6 \ar[u,"#4 "] 
+	\ar[r,"#8 "]
+	 & #7   \ar[u,"#5 "].
+	\end{tikzcd}
+\end{center}
+}
+\DeclareMathOperator{\Nm}{N}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\mSpec}{mSpec}
+%%%%%%%%%%%%%Complex Analysis Package%%%%%%%%%%%%%
+\newcommand{\D}{\mathbb{D}}%the unit disc
+
+%%%%%%%%%%%%%Complex Analysis Package%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%Algebra Package%%%%%%%%%%%%%
+\newcommand{\IP}[2]{\langle #1,#2 \rangle}
+\newcommand{\veb}{\mathbf{B}}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}\newcommand{\sg}{\leq}
+\newcommand{\nsg}{\unlhd}
+%%%%%%%%%%%%%Algebra Package%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Measure Package%%%%%%%%%%%%%
+\newcommand{\MM}{\mathfrak{M}}
+\newcommand{\LL}{\mathcal{L}}
+\newcommand{\CC}{\mathcal{C}}
+%%%%%%%%%%%%%Measure Package%%%%%%%%%%%%%
+\newcommand{\case}{[label=\textbf{Case \arabic*:}]}
+\newcommand{\stp}{[label=\textbf{Case \arabic*:}]}
+
+%%%%%%%%%%%%%Topology Package%%%%%%%%%%%%%
+\newcommand{\aaa}{\mathscr{A}}
+\newcommand{\TT}{\mathscr{T}}
+\newcommand{\PP}{\mathscr{P}}
+\newcommand{\BB}{\mathscr{B}}
+\newcommand{\FF}{\mathscr{F}}
+\newcommand{\UU}{\mathscr{U}}
+\newcommand{\VV}{\mathscr{V}}
+\newcommand{\WW}{\mathscr{W}}
+\newcommand{\sss}{\mathcal{S}}
+\newcommand{\sbt}{\subseteq}%subset
+\newcommand{\sts}[2]{\left\{#1\middle|#2\right\}}
+\newcommand{\unn}[3]{\underset{#1 \in #2}{\bigcup}#3} %union
+\newcommand{\inn}[3]{\underset{#1 \in #2}{\bigcap}#3} %intersection
+%\newcommand{\ar}[2]{[#1,"#2"]}
+\newcommand{\apn}[1]{\ar[#1,"open ",symbol=\sbteq]}%arrow open subset
+%%%%%%%%%%%%%Topology Package%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Manifold Package%%%%%%%%%%%%%
+\newcommand{\kk}{$C^k $}
+\newcommand{\cy}{$C^\infty $}
+\newcommand{\ck}{$C^k $}
+\newcommand{\pl}[2]{\frac{\partial #1}{\partial #2}}%partial derivative
+\newcommand{\nti}[4]{\int_{#1}^{#2}#3\,\mathrm{d}#4}%integration
+\newcommand{\bv}[2]{(\frac{\partial }{\partial x^{#1 }} )^{#2 }}% basis vector field w.r.t a coordinate
+\newcommand{\cv}[1]{(\frac{\partial }{\partial t} )^{#1 }}% curve vector field 
+\newcommand{\dbv}[2]{(\mathrm{d}x^{#1 } )_{#2 }}% dual basis vector field w.r.t a coordinate
+\newcommand{\dfv}[1]{(\mathrm{d}f )_{#1 }}% Dual Vector field of a Function w.r.t a coordinate
+%%%%%%%%%%%%%Manifold Package%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Miscellaneous%%%%%%%%%%%%%
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\uln}[1]{\underline{#1}}%underline
+\newcommand{\topic}[1]{\noindent{\textbf{#1}}}
+\newcommand{\ud}[1]{\underline{#1}}%underline
+\newcommand{\df}[1]{\overset{def}{#1}}%Definition
+\newcommand{\cl}[1]{\overline{#1}}%closed 
+\newcommand{\tcr}[1]{\textcolor{red}{#1} }%textcolor red
+\newcommand{\xra}[3]{#1 \xrightarrow{#2} #3}%xrightarrow
+\newcommand{\ed}[2]{|#1-#2|}%Euclidean Distance
+\newcommand{\sqc}[3]{#1 \rightarrow #2, \ as \  #3 \rightarrow \infty}%sequence converges
+\newcommand{\bij}{\longleftrightarrow}
+\newcommand{\ctd}{$\longrightarrow \longleftarrow $}
+\newcommand{\bc}[2]{\genfrac{(}{)}{0pt}{}{#1}{#2}}
+\newcommand{\ovs}[2]{\overset{#1}{#2}}%overset
+\newcommand{\ssmm}[2]{\sum\limits_{\substack{#1}}^{#2}}%sum
+\newcommand{\pprr}[2]{\prod\limits_{#1}^{#2}}%product
+\newcommand{\uunn}[2]{\bigcup_{#1}^{#2}}%union
+\newcommand{\iinn}[2]{\bigcap_{#1}^{#2}}%intersection
+
+
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{\string~/ObsidianOne/figures/}{#1.pdf_tex}
+}
+\usepackage{quiver}
+%\geometry{showframe} % display margins for debugging page layout
+\usepackage{graphicx} % allow embedded images
+  \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\usepackage{svg}
+\usepackage{transparent}
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+  \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+
+% Standardize command font styles and environments
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% add numbers to chapters, sections, subsections
+\setcounter{secnumdepth}{2}
+\usepackage{xcolor}
+\definecolor{g1}{HTML}{077358}
+\definecolor{g2}{HTML}{00b096}
+% chapter format  %(if you use tufte-book class)
+%\titleformat{\chapter}%
+%{\huge\rmfamily\itshape\color{red}}% format applied to label+text
+%{\llap{\colorbox{red}{\parbox{1.5cm}{\hfill\itshape\huge\color{white}\thechapter}}}}% label
+%{2pt}% horizontal separation between label and title body
+%{}% before the title body
+%[]% after the title body
+
+% section format
+\titleformat{\section}%
+{\normalfont\Large\itshape\color{g1}}% format applied to label+text
+{\llap{\colorbox{g1}{\parbox{1.5cm}{\hfill\color{white}\thesection}}}}% label
+{1em}% horizontal separation between label and title body
+{}% before the title body
+[]% after the title body
+
+% subsection format
+\titleformat{\subsection}%
+{\normalfont\large\itshape\color{g2}}% format applied to label+text
+{\llap{\colorbox{g2}{\parbox{1.5cm}{\hfill\color{white}\thesubsection}}}}% label
+{1em}% horizontal separation between label and title body
+{}% before the title body
+[]% after the title body
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color-tufte}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setcounter{tocdepth}{4}
+\title{Dynamical System}
+\begin{document}
+%稳定性理论部分思维导图
+%要求：
+% TODO 自治系统李雅普诺夫第一方法（一阶近似法）
+% TODO 李雅普诺夫第二方法（构造V函数）的全部定理内容、每个定理列举至少一道习题。
+% TODO 非自治系统相关内容，如线性非自治方程的稳定性、非自治方程李雅普诺夫函数的相关结论。
+% TODO 李雅普诺夫函数构造的相关问题。
+% DONE 书中58页定理3.4、77页定理3.11等定理的相关证明。
+\maketitle
+\tableofcontents
+\section{Stability}
+\begin{marginfigure}
+    \centering
+        \incfig{stability}
+	\caption{Stable}
+\end{marginfigure}
+
+\begin{marginfigure}
+    \centering
+		\incfig{attractive}
+	\caption{Attractive}
+\end{marginfigure}
+\begin{definition} 
+
+\begin{itemize}
+	\item \textbf{Stability:} the zero solution is called \emph{stable} if 
+\[ \lim_{x_0\to 0}\sup_{t > t_0}x(t,t_0,x_0)=0 \]
+		\[ \forall x_0 \text{in defined region,} \lim_{t\to\infty}x(t,t_0,x_0)=0 \]
+        \item \textbf{Attractivity} the zero solution is called \emph{attractive} if
+	\item \textbf{Asymptotical Stability:} the zero solution is called \emph{asymptotically stable} if it is both stable and attractive.
+	\item \textbf{Unstability:} A fixed point $x^*$ is said to be unstable if it is not stable.
+\end{itemize}
+\end{definition}
+\subsection{Autonomous Systems}
+\paragraph{Linear Systems}
+
+The one parameter group is given by the matrix exponential \[ x(t) = e^{(t-t_0)A}x_0, \]
+where $A$ is the matrix of the linear system $\partial_t x = Ax$.
+
+The zero solution of the system is stable $\iff$ \[ \lim_{x_0 \to \infty} (\sup{t>t_0} e^{(t-t_0)A}) x_0 =0 \]
+
+For simplicity we deal with the linear system on $\mathbb{C}^n$. (In fact the real case could be reduced by complexification).
+\begin{lemma} 
+	For any $P \in GL_n(\mathbb{C})$, the zero solution of the new dynamical system for $y= Px \in \mathbb{C}^n$ given the vector field \[ \partial_t y = (PAP^{-1})y \] is stable(resp. attractive) if and only if the zero solution of the original system is stable(resp. attractive).
+\end{lemma}
+\begin{formalproof} 
+The one parameter group of the new system is given by \[ y(t) = e^{(t-t_0)PAP^{-1}}y_0 = Pe^{(t-t_0)A}P^{-1}y_0, \]
+hence  
+\begin{align*}
+   & \text{the zero solution in the new system is stable} \\
+	\iff & P \lim_{y_0 \to 0} (\sup_{t>t_0} e^{(t-t_0)A}) P^{-1} y_0 = P  \lim_{P x_0 \to 0} (\sup_{t>t_0} e^{(t-t_0)A}) x_0 =0  \\
+	\iff & ({\text{P linear bijection hence homeomorphism}})  \lim_{x_0 \to 0} (\sup_{t>t_0} e^{(t-t_0)A}) x_0 =0 \\
+	\iff & \text{the zero solution in the original system is stable}
+	\end{align*}
+	
+	
+Similarly 
+\begin{align*}
+    & \text{the zero solution in the new system is attractive} \\
+	\iff & \forall y_0 \text{we have} P \lim_{t \to \infty} ( e^{(t-t_0)A}) P^{-1} y_0 = P  \lim_{t \to \infty} (e^{(t-t_0)A}) x_0 =0  \\
+	\iff & \forall x_0 \text{we have} \lim_{t \to \infty} ( e^{(t-t_0)A}) x_0 =0 \\
+	\iff & \text{the zero solution in the original system is attractive}
+\end{align*}
+\end{formalproof}
+\begin{lemma} Given  diagonal blocks matrix $A:={A_1,...,A_k}$
+	with	the subsystems $x^i \in \C^{n_i}$ with vector fields defined by \[ \partial_t x^i = A_i x, \]
+
+	then the zero solution of the system is stable(resp. attractive) if and only if the zero solution of \emph{each} subsystem is stable(resp. attractive).
+\end{lemma}
+\begin{formalproof} 
+\begin{align*}
+	& \text{the zero solution in the original system is stable} \\
+	\iff & \lim_{x_0 \to 0} (\sup_{t>t_0} e^{(t-t_0)A}) x_0 =0 \\
+\end{align*}
+where \[ e^{(t-t_0)A}) x_0 =
+\begin{pmatrix}
+	e^{(t-t_0)A_1})& \cdots & 0 \\
+	\vdots & \ddots & \vdots \\
+	0 & \cdots & e^{(t-t_0)A_k}) 
+\end{pmatrix}
+\begin{pmatrix}
+	x_0^1 \\
+	\vdots \\
+	x_0^k
+\end{pmatrix}
+= 
+\begin{pmatrix}
+	e^{(t-t_0)A_1}) x_0^1 \\ 
+	\vdots \\
+	e^{(t-t_0)A_k}) x_0^k
+\end{pmatrix}
+ \]
+ 
+ Hence 
+ \begin{align*}
+ & 	 \lim_{x_0 \to 0} (\sup_{t>t_0} e^{(t-t_0)A}) x_0 =0 \\
+ 	 \iff & \lim_{x_0 \to 0} (\sup_{t>t_0} e^{(t-t_0)A_j}) x_0^j =0  \forall 1 \leq j \leq k \\
+ 	 \iff & \text{the zero solutions of all subsystems are stable.}
+ \end{align*}
+ 
+ Similarly
+ \begin{align*}
+ 	&\text{the zero solution in the original system is attractive} \\
+	\iff & \lim_{t\to \infty} e^{(t-t_0)A}) x_0 =0  \forall x_0 \\
+		\iff & \lim_{t\to \infty} e^{(t-t_0)A_j}) x_0^j =0  \forall x_0,1 \leq j \leq k \\
+	\iff & 	\text{the zero solutions in all subsystems are attractive}
+ \end{align*}
+ \end{formalproof}
+\begin{lemma} 
+For a "Jordan" system defined by \[ \partial_t x = 
+\begin{bmatrix}
+	\lambda & 1 & 0 & \cdots & 0 \\
+	0 & \lambda & 1 & \cdots & 0 \\
+	\vdots & \vdots & \vdots & \ddots & \vdots \\
+	0 & 0 & 0 & \cdots & \lambda
+\end{bmatrix}
+x =: J_m(\lambda)x, 
+\]
+the zero solution is stable if and only if $\Re(\lambda)<0$ or ($\Re(\lambda)=0$ and $m=1$).
+
+the zero solution is attractive if and only if $\Re(\lambda)<0$.
+\end{lemma}
+\begin{formalproof} 
+For the euclidean topology over $M_m(\mathbb{R})$ we use the standard norm \[ \n{A}:= \sqrt{\sum_{ij} a^2_{ij}} \]
+
+We use the fact that in phase space the limit is the origin $\iff$ the norm is tending to 0, without explicitly ramble about it.
+
+A quick computation: 
+\[ e^{(t-t_0)J_m(\lambda)} = e^{(t-t_0)\lambda}
+\begin{pmatrix}
+	1 & \frac{t-t_0}{1!} & \cdots & \frac{(t-t_0)^{m-1}}{(m-1)!} \\
+	0 & 1 & \cdots & \frac{(t-t_0)^{m-2}}{(m-2)!} \\
+	\vdots & \vdots & \ddots & \vdots \\ 
+	0 & 0 & \cdots & \frac{t-t_0}{1!} \\
+	0 & 0 & \cdots & 1
+\end{pmatrix}
+ \]
+ hence 
+\begin{align*}
+	n(t)&:=\n{e^{(t-t_0)J_m(\lambda)}} \\
+	    &= e^{(t-t_0)\Re{\lambda}}\sqrt{m \cdot 1^2+ (m-1)(\frac{t-t_0}{1!})^2 + \cdots + 1 \cdot (\frac{(t-t_0)^{m-1}}{(m-1)!}})^2 \\
+	    &=: e^{(t-t_0)\Re{\lambda}} \sqrt{P}(t)
+\end{align*}
+\text{It suffices to consider the following cases} \\
+\begin{enumerate}[label=\textbf{Case \Roman*:},leftmargin=1.3cm]
+	\item For $\Re(\lambda)<0$ we need to show the zero solution is stable and attractive. 
+ Firstly, \[ \n{e^{(t-t_0)J_m(\lambda)} x_0} \leq \n{e^{(t-t_0)J_m(\lambda)}} \cdot \n{x_0}, \]
+ where $n(t)=\n{e^{(t-t_0)J_m(\lambda)}} \to 0 $ as $t \to \infty$, hence the zero solution is attractive.
+ 
+ Secondly, we could do "one point compactification" to get the space \[ [t_0,\infty)\cup {\infty}, \]
+ and extend $n$ by mapping $\infty \mapsto 0$. And since $n(t)\to 0$, the extended mapping is a continuous real valued function over a compact space, hence admits a maximum, say $M$. Therefore 
+ \[ \n{e^{(t-t_0)J_m(\lambda)} x_0} \leq \n{e^{(t-t_0)J_m(\lambda)}} \cdot \n{x_0} \leq M \cdot \n{x_0}, \]
+ hence the zero solution is stable.
+	\item For ($\Re(\lambda)=0$ and $m=1$) we need to show the zero solution is stable. But $n(t)\equiv 1$, hence  \[ \n{e^{(t-t_0)J_m(\lambda)} x_0} =  \n{x_0}, \]
+thus the zero solution is stable.
+
+	\item For $\Re(\lambda)>0$ we need to show the zero solution is neither stable nor attractive.
+	Given $x_0 \neq 0$, without loss of generality, let $(x_0)_1 =1 $(since we could focus our attention at a small ball centered at origin, which is homeomorphic to $\mathbb{E}^m$)
+	
+	therefore 
+	\begin{align*}
+		\n{e^{(t-t_0)J_m(\lambda)} x_0} &\geq n{(e^{(t-t_0)J_m(\lambda)})_1}  \\
+		& = e^{(t-t_0)\Re{\lambda}} \to \infty,
+	\end{align*}
+	it is unbounded, hence the limit as $t\to \infty$ could not exist, hence the zero solution is NOT attractive.
+	
+	Now consider the sequence of initial positions ${(x_0)_n} :=\{ \frac{1}{t'-t_0} \}e_1 $ where $t'$ takes $t_0+n$. Of course the sequence is tending to the origin. But as $t_0+n$ grows, \[ \n{e^{(t-t_0)J_m(\lambda)} x_0} = \frac{e^{n\Re{\lambda}}}{n} \to \infty, \]
+	
+	hence the zero solution is NOT stable.
+	
+	\item For $\Re(\lambda)=0$ we need to show the zero solution is NOT attractive. WLG, we consider the initial position $x_0=e_1$(since we could focus our attention at a small ball centered at origin, which is homeomorphic to $\mathbb{E}^m$)
+	\[ \n{e^{(t-t_0)J_m(\lambda)} x_0} =  \n{e_1}=1, \]
+	which is independent of $t$, hence the zero solution is NOT attractive.
+	\item For ($\Re(\lambda)=0$ and $m>1$)we need to show the zero solution is NOT stable.
+	\item WLG, we consider the path $(x_0)_\delta = \delta e_2$. hence  \[ \n{e^{(t-t_0)J_m(\lambda)} x_0} =  \delta (t-t_0 + 1), \]
+    now consider the sequence $(x_0)_{n}= \frac{1}{(n+t_0)} e_2$ hence the norm is just \[  \frac{t-t_0+1}{n+t_0} \to 1, \]
+    hence as the sequence of pts in phase space approaching the origin, the norm is no where near touching the 0, i.e., the zero solution could not possibly be stable.
+\end{enumerate}
+
+ \end{formalproof}
+\begin{theorem} 
+	\begin{enumerate}
+		\item 
+	the zero solution of the linear system $\partial_t x = Ax$ is assymtotically stable  \\ $\iff$ All the subsystems with vector fields $J_{n_i}(\lambda_i)$ is both attractive and stable \\ $\iff$ All the eigenvalues of $A$ have negative real parts.
+\item
+	the zero solution of the linear system $\partial_t x = Ax$ is stable \\ $\iff$ All the subsystems are stable \\ $\iff$ All the eigenvalues of $A$ have non-positive real parts, and for $\lambda_i=0$ the jordan block is of size $n_i=1$.
+
+	In particular, if there exists $\lambda_i>0$ or ($\lambda_i=0$ and $n_i>1$), then the zero solution is unstable.
+\end{enumerate}
+\end{theorem}
+\begin{formalproof} it follows directly from the lemmas above. \end{formalproof}
+\paragraph{Liapunov1: Linear Appoximation}
+\cite{arnold1992ordinary}
+\paragraph{Liapunov2: V Function}
+\underline{Intuition}
+If using an Euclidean metric(inner product), we find \[ r(f(x),x)\leq 0  \text{'} \iff \text{'}  \nabla r^2(x) \cdot f(x) \leq 0 \]
+i.e., the vector field is pointing inwards, then given $x_0$, we could have a pretty decent predection of $x$ having smaller magnitude as time evolves.
+
+
+In fact, we could consider a broader class of positive($\geq0$) definite($=0 \iff x=0$) functions(Liapunov V functions) in a neighborhood of $x=0$ rather than just the global norm $r^2$, which are not necessarily quadratic, but still retain the sense that $f(x)$ is "pointing inwards"($\nabla V(x) \cdot f(x) \leq 0$).
+\begin{theorem} 
+	If such a function $V(x)$ exists, then the system is stable.(Later we will see the existence of $V$ is not only sufficient, but also necessary )
+
+	Moreover, if the set of points where $\nabla V(x)$ is orthogonal to $f(x)$ does not contain any other phase curves of the system(in particular, if $\nabla V(x) $ is positive definite), then the system is asymptotically stable.
+
+\end{theorem} 
+
+Note that all problems come from the textbook \cite{2001} Problem set 3, Page 122-124.
+
+\underline{Problem 14(1)} Let \[ V(x)=\frac{x_1^2+x_2^2}{2}, \]
+then \[ \nabla V (x) \cdot 
+\begin{pmatrix}
+	-x_1+x_1x^2 \\
+	-2x_1^2 x_2 -x_2
+\end{pmatrix}
+= 
+-x_1^2-x_2^2-(x_1x_2)^2 \leq 0.
+\]
+
+Using the same intuition of the direction of $f(x)$ we would have 2 sufficient conditions of the unstability of the system.
+\begin{theorem} 
+If there exists a function $U(x)$ in a small neighborhood of $x=0$ such that
+\begin{enumerate}
+
+	\item $U(0)=0$ and at some pt. $\overline{x_0}$ in the small nbh. we have $U(\overline{x_0}) > 0$,
+\item $\nabla U(x) \cdot f(x) > 0$ for all $x$ in the nbh. except $x=0$(i.e., positive definite; in other words, the vector field is pointing outwards),
+
+then the system is unstable.
+\end{enumerate}
+\end{theorem}
+\underline{Problem 2(4)} Let \[ U(x)=\frac{x_1^2+x_2^2}{2}, \]
+which is postive definite,
+then \[ \nabla U(x) \cdot
+\begin{pmatrix}
+	x_1-x_2+x_1x_2+x_1^3 \\
+	x_1+x_2-x_1^3-x_2^2
+	\end{pmatrix}
+	= r^2 + O(r^3) = r^2(1+ O(r))
+\]
+where $r=\sqrt{x_1^2+x_2^2}.$ Hence there exists $\delta> 0$ s.t. for all $(x_1,x_2)\in B(O,\delta)/{O}$ we have \[ \nabla U(x) \cdot f(x_1x_2) >0. \]
+therefore the zero solution is unstable.
+\begin{theorem} 
+If there exists a function $U(x)$ in a small neighborhood of $x=0$ such that
+\begin{enumerate}
+    \item $U(0)=0$ and for any small nbh. of $x=0$ there exists a pt. $\overline{x_0}$  s.t. $U(\overline{x_0}) > 0$,
+    \item \[ \nabla U(x) \cdot f(x) = \lambda U(x)+ W(x), \]
+where $\lambda>0, W(x) \geq 0$(essentially the same as $\partial_t (U(x(t))) \geq \lambda U(x)$),
+\end{enumerate}
+
+then the system is unstable.
+\end{theorem}
+\begin{formalproof} 
+	(Proof by contradiction)
+	Assume that the system is stable, then for any small $\epsilon>0$ we could find $\delta>0$ s.t. whenever \[ x_0^T x_0 < \delta, \]
+	for any time $t$ after $t_0$ we could control \[ x(t,t_0,x_0)^Tx(t,t_0,x_0)< \epsilon.  \]
+
+For such a small nbh. of $B(\delta,0)$ we could find $\overline{x_0} \in B(\delta,0)$ s.t. \[ U(\overline{x_0})> 0 \]
+
+Now since $\partial_t (U(x(t,t_0,\overline{x_0}))) \geq \lambda U(x(t,t_0,\overline{x_0}))$, by Gronwall's Inequality, \[ \partial_t U(x(t,t_0,\overline{x_0})) \geq \lambda U(x(t,t_0,\overline{x_0})) \geq \lambda U(\overline{x_0}) e^{\lambda(t-t_0)}> 0. \]
+
+Since $U(x)$ is continuous and $U(0)=0$ there exists $\epsilon >\eta> 0$ s.t. for all time $t>t_0$ \[ x(t,t_0,\overline{x_0})^T x(t,t_0,\overline{x_0}) \geq \eta, \]
+
+therefore, 
+\begin{align*}
+  U(x(t,t_0,\overline{x_0})) &= U(\overline{x_0})+ \int_{t_0}^t \partial_t U(x(\tau,t_0,\overline{x_0})) \text{d}\tau \\
+                             &\geq U(\overline{x_0})+ \int_{t_0}^t \lambda U(x(\tau,t_0,\overline{x_0})) + W(x(\tau,t_0,\overline{x_0})) \text{d}\tau
+\end{align*}
+but the function inside the integral is actually $\geq \lambda U(\overline{x_0})$, hence \[ U(x(t,t_0,\overline{x_0})) \geq U(\overline{x_0}) + \lambda U(\overline{x_0})(t-t_0) \to \infty, \]
+
+as time evolves $t\to\infty$. 
+
+However, the integral curve $x(t,t_0,\overline{x_0})$ is bounded inside $B(0,\epsilon)$, and since $U(x)$ is continuous, the values of $U(x(t,t_0,\overline{x_0}))$ is also bounded, leading to the contradiction, completing the proof.
+\end{formalproof}
+
+\underline{Problem 2(7)} Let \[ U(x)=\frac{x_1^2-x_2^2}{2}, \]
+then \[ \nabla U(x) \cdot 
+	\begin{pmatrix}
+		x_1+x_2+x_1x_2^2 \\
+		2x_1+x_2-x_1^2 x_2
+	\end{pmatrix}
+	= x_1^2-x_2^2+2(x_1x_2)^2=2U+W,
+\]
+where $W\geq 0$, therefore the zero solution of the system is stable.
+
+\subsection{Non-Autonomous Systems}
+\cite{2001}
+\subsection{Constructions of Liapunov V function}
+
+\paragraph{If the dynamical system is stable, then }
+\paragraph{If it is a planar vector field, and $x_2$ is the velocity of $x_1$}
+\paragraph{If it is a constant coeffient linear vector field,}
+We choose such $V$ from the set of quadratic forms ${x^T B x}$, which is essentially the set of real symmetric matrices $\mathscr{S}$, then the derivative of $V$ along the flow of the vector field ${Ax}$ is just $x^T (A^T B+ BA)x=: x^TCx$. 
+
+As we know, in the topological vector space of all real matrices of size $n\times n$ $M_n(\mathbb{R})$ \[ (d_{ij})\in \mathscr{S} \iff (d_{ij}) \in \cap_{ij} \ker(d_{ij} - d_{ji}) =
+\begin{bmatrix}
+	d_{12} - d_{21} \\
+	\vdots \\
+	d_{n-1,n} - d_{n,n-1}
+\end{bmatrix} 
+^{-1}
+(0).
+\]
+In other words, $\mathscr{S} \subset M_n(\mathbb{R})$ is a topological linear closed subspace.
+
+Looking at this linear (hence continuous) operator $A^T * + * A$ on the space of real symmetric matrices more closely, 
+
+\begin{lemma} if eigenvalues of $A$ satisfy \[ \lambda_i + \lambda_j \neq 0, \]
+then the operator $A^T * + * A$ is injective hence bijective.
+\end{lemma}
+Assuming $C=(c_{ij}), A=(a_{ij})$
+
+For planar dynamical system, 
+
+\[ V(x)
+=
+\frac{-1}{\Delta}
+\begin{vmatrix}
+	0 &	x_1^2 & 2 x_1x_2 & x_2^2 \\
+	c_{11} & a_{11} & a_{21} & 0 \\
+	2c_{12} & a_{12} & a_{11} + a_{22} & a_{21} \\
+	c_{22} & 0 & a_{12} & a_{22}
+\end{vmatrix}
+\]
+where $\Delta = tr A \times \det A \neq 0.$
+
+\bibliography{DynSys_ref}
+\bibliographystyle{plain}
+
+\end{document}
